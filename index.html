@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life Tracker</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Life Tracker</h1>
+    <p>Track your life. Build your future.</p>
+</header>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<main>
+
+    <!-- ============ OVERVIEW ============ -->
+    <section class="dashboard" id="overviewTab" data-tab-content>
+
+        <div class="card money-card" data-goto="moneyTab">
+            <h2>💰 Money</h2>
+            <div class="balance">
+                <span>Balance</span>
+                <strong id="balanceAmount" class="mono">₱0.00</strong>
+            </div>
+            <div class="money-summary">
+                <div>
+                    <span>Income</span>
+                    <strong id="incomeAmount" class="mono">₱0.00</strong>
+                </div>
+                <div>
+                    <span>Expense</span>
+                    <strong id="expenseAmount" class="mono">₱0.00</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-goto="habitsTab">
+            <h2>✅ Habits</h2>
+            <p id="habitsSummary">0 / 0</p>
+            <span class="card-sub">done today</span>
+        </div>
+
+        <div class="card" data-goto="goalsTab">
+            <h2>🎯 Goals</h2>
+            <p id="goalsSummary">0</p>
+            <span class="card-sub">active</span>
+        </div>
+
+        <div class="card" data-goto="tasksTab">
+            <h2>📋 Tasks</h2>
+            <p id="tasksSummary">0 / 0</p>
+            <span class="card-sub">done</span>
+        </div>
+
+    </section>
+
+    <!-- ============ NAV ============ -->
+    <nav class="tabs" aria-label="Sections">
+        <button class="tab-btn active" data-tab="overviewTab">Overview</button>
+        <button class="tab-btn" data-tab="moneyTab">Money</button>
+        <button class="tab-btn" data-tab="habitsTab">Habits</button>
+        <button class="tab-btn" data-tab="goalsTab">Goals</button>
+        <button class="tab-btn" data-tab="tasksTab">Tasks</button>
+    </nav>
+
+    <!-- ============ MONEY ============ -->
+    <section id="moneyTab" data-tab-content hidden>
+
+        <button class="add-btn" id="addEntryBtn">+ Add Entry</button>
+
+        <div id="entryForm" class="entry-form">
+            <h2>Add Entry</h2>
+
+            <label for="entryType">Type</label>
+            <select id="entryType">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+
+            <label for="entryAmount">Amount</label>
+            <input type="number" id="entryAmount" placeholder="Enter amount" min="0" step="0.01">
+
+            <label for="entryCategory">Category</label>
+            <select id="entryCategory">
+                <option value="Salary">Salary</option>
+                <option value="Food">Food</option>
+                <option value="Transportation">Transportation</option>
+                <option value="School">School</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Bills">Bills</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="entryDescription">Description</label>
+            <input type="text" id="entryDescription" placeholder="Example: Lunch">
+
+            <label for="entryDate">Date</label>
+            <input type="date" id="entryDate">
+
+            <button id="saveEntryBtn">Save Entry</button>
+        </div>
+
+        <section class="panel">
+            <h2>Transactions</h2>
+            <div id="transactionList"></div>
+        </section>
+
+    </section>
+
+    <!-- ============ HABITS ============ -->
+    <section id="habitsTab" data-tab-content hidden>
+
+        <button class="add-btn" id="addHabitBtn">+ Add Habit</button>
+
+        <div id="habitForm" class="entry-form">
+            <h2>Add Habit</h2>
+            <label for="habitName">Habit name</label>
+            <input type="text" id="habitName" placeholder="Example: Drink 2L water">
+            <button id="saveHabitBtn">Save Habit</button>
+        </div>
+
+        <section class="panel">
+            <h2>Today's Habits</h2>
+            <div id="habitList"></div>
+        </section>
+
+    </section>
+
+    <!-- ============ GOALS ============ -->
+    <section id="goalsTab" data-tab-content hidden>
+
+        <button class="add-btn" id="addGoalBtn">+ Add Goal</button>
+
+        <div id="goalForm" class="entry-form">
+            <h2>Add Goal</h2>
+
+            <label for="goalName">Goal name</label>
+            <input type="text" id="goalName" placeholder="Example: Emergency fund">
+
+            <label for="goalTarget">Target amount</label>
+            <input type="number" id="goalTarget" placeholder="Enter target amount" min="0" step="0.01">
+
+            <label for="goalDeadline">Deadline (optional)</label>
+            <input type="date" id="goalDeadline">
+
+            <button id="saveGoalBtn">Save Goal</button>
+        </div>
+
+        <section class="panel">
+            <h2>Your Goals</h2>
+            <div id="goalList"></div>
+        </section>
+
+    </section>
+
+    <!-- ============ TASKS ============ -->
+    <section id="tasksTab" data-tab-content hidden>
+
+        <button class="add-btn" id="addTaskBtn">+ Add Task</button>
+
+        <div id="taskForm" class="entry-form">
+            <h2>Add Task</h2>
+
+            <label for="taskText">Task</label>
+            <input type="text" id="taskText" placeholder="Example: Pay electric bill">
+
+            <label for="taskDue">Due date (optional)</label>
+            <input type="date" id="taskDue">
+
+            <button id="saveTaskBtn">Save Task</button>
+        </div>
+
+        <section class="panel">
+            <h2>Your Tasks</h2>
+            <div id="taskList"></div>
+        </section>
+
+    </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
